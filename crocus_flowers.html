@@ -1,0 +1,1541 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light" data-lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crocus Flowers — Цветочный магазин | Астана</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   CROCUS FLOWERS — CSS
+   Palette: Ivory #FAF7F2 | Blush #F2C4CE | Sage #7BAE8A | 
+            Deep Rose #C4617E | Petal White #FFFFFF | Moss #3D6B4F
+   ============================================================ */
+
+:root {
+  --ivory:   #FAF7F2;
+  --blush:   #F2C4CE;
+  --blush2:  #E8A0B0;
+  --sage:    #7BAE8A;
+  --sage2:   #5A9068;
+  --rose:    #C4617E;
+  --rose2:   #A84A65;
+  --moss:    #3D6B4F;
+  --cream:   #FDF5EE;
+  --sand:    #EDE3D8;
+  --text:    #2C2416;
+  --text2:   #7A6A5A;
+  --card:    #FFFFFF;
+  --nav-bg:  rgba(250,247,242,0.95);
+  --border:  rgba(196,97,126,0.15);
+  --fh: 'Playfair Display', Georgia, serif;
+  --fb: 'DM Sans', system-ui, sans-serif;
+  --radius: 20px;
+  --shadow: 0 8px 40px rgba(60,30,40,0.10);
+}
+[data-theme="dark"] {
+  --ivory:   #1A1410;
+  --cream:   #221A14;
+  --sand:    #2E2418;
+  --text:    #F5EDE0;
+  --text2:   #B09880;
+  --card:    #2A1F18;
+  --nav-bg:  rgba(26,20,16,0.97);
+  --border:  rgba(196,97,126,0.25);
+  --shadow:  0 8px 40px rgba(0,0,0,0.35);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--fb); background: var(--ivory); color: var(--text); overflow-x: hidden; transition: background .3s, color .3s; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+img { display: block; max-width: 100%; }
+button { cursor: pointer; }
+svg { display: block; }
+
+/* ============================================================  LOADER */
+#loader {
+  position: fixed; inset: 0; background: var(--ivory); z-index: 9999;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  transition: opacity .6s, visibility .6s;
+}
+#loader.hide { opacity: 0; visibility: hidden; pointer-events: none; }
+.ld-flower {
+  width: 70px; height: 70px; position: relative;
+  animation: ldSpin 2s linear infinite;
+}
+@keyframes ldSpin { to { transform: rotate(360deg); } }
+.ld-petal {
+  position: absolute; width: 22px; height: 34px;
+  background: var(--blush); border-radius: 50% 50% 50% 0;
+  transform-origin: 50% 100%;
+}
+.ld-petal:nth-child(1) { top: 0; left: 50%; transform: translateX(-50%) rotate(0deg); }
+.ld-petal:nth-child(2) { top: 20%; right: 0; transform: rotate(60deg); }
+.ld-petal:nth-child(3) { bottom: 20%; right: 0; transform: rotate(120deg); }
+.ld-petal:nth-child(4) { bottom: 0; left: 50%; transform: translateX(-50%) rotate(180deg); }
+.ld-petal:nth-child(5) { bottom: 20%; left: 0; transform: rotate(240deg); }
+.ld-petal:nth-child(6) { top: 20%; left: 0; transform: rotate(300deg); }
+.ld-center { position: absolute; inset: 50%; width: 18px; height: 18px; transform: translate(-50%,-50%); background: var(--rose); border-radius: 50%; }
+.ld-text { font-family: var(--fh); font-size: 1.4rem; color: var(--rose); margin-top: 22px; letter-spacing: 3px; }
+
+/* ============================================================  NAVBAR */
+#navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: var(--nav-bg); backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  height: 68px; display: flex; align-items: center;
+  justify-content: space-between; padding: 0 5%;
+  transition: background .3s;
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--fh); font-size: 1.4rem; color: var(--rose);
+}
+.nav-logo-icon { width: 32px; height: 32px; }
+.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-links a {
+  font-size: .82rem; font-weight: 500; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--text2); transition: color .2s;
+  position: relative;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+  height: 1.5px; background: var(--rose); transform: scaleX(0); transition: transform .2s;
+}
+.nav-links a:hover { color: var(--rose); }
+.nav-links a:hover::after { transform: scaleX(1); }
+.nav-right { display: flex; gap: 10px; align-items: center; }
+.nav-icon-btn {
+  width: 36px; height: 36px; border-radius: 50%; border: 1.5px solid var(--border);
+  background: transparent; display: flex; align-items: center; justify-content: center;
+  color: var(--text2); transition: all .2s;
+}
+.nav-icon-btn:hover { background: var(--blush); border-color: var(--blush2); color: var(--rose2); }
+.nav-lang {
+  font-size: .72rem; font-weight: 600; letter-spacing: 1px;
+  border: 1.5px solid var(--border); border-radius: 20px;
+  padding: 5px 12px; background: transparent; color: var(--text2); transition: all .2s;
+}
+.nav-lang:hover { background: var(--blush); border-color: var(--blush2); color: var(--rose2); }
+.nav-cta {
+  background: var(--rose); color: #fff; border: none; border-radius: 24px;
+  padding: 9px 20px; font-size: .8rem; font-weight: 600; letter-spacing: .5px;
+  display: flex; align-items: center; gap: 7px; transition: all .2s;
+  box-shadow: 0 4px 16px rgba(196,97,126,.3);
+}
+.nav-cta:hover { background: var(--rose2); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(196,97,126,.4); }
+.burger { display: none; flex-direction: column; gap: 5px; background: none; border: none; padding: 4px; }
+.burger span { display: block; width: 22px; height: 2px; background: var(--rose); border-radius: 2px; transition: all .3s; }
+.burger.on span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.burger.on span:nth-child(2) { opacity: 0; }
+.burger.on span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile menu */
+#mmenu {
+  display: none; position: fixed; top: 68px; left: 0; right: 0; z-index: 999;
+  background: var(--nav-bg); backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  flex-direction: column; padding: 16px 5%; gap: 0;
+}
+#mmenu.on { display: flex; }
+#mmenu a { padding: 13px 0; font-size: .95rem; font-weight: 500; border-bottom: 1px solid var(--border); color: var(--text); transition: color .2s; }
+#mmenu a:last-child { border: none; color: var(--rose); margin-top: 4px; }
+
+/* ============================================================  HERO */
+#hero {
+  min-height: 100vh; display: flex; align-items: center;
+  position: relative; overflow: hidden;
+  background: linear-gradient(135deg, var(--cream) 0%, var(--ivory) 50%, #FBF0F3 100%);
+  padding-top: 68px;
+}
+/* Floating petals bg */
+.petals-bg { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.fp {
+  position: absolute; border-radius: 50% 0 50% 0;
+  animation: floatPetal linear infinite;
+  opacity: 0;
+}
+@keyframes floatPetal {
+  0%   { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+  10%  { opacity: .6; }
+  90%  { opacity: .4; }
+  100% { transform: translateY(-10vh) rotate(720deg); opacity: 0; }
+}
+/* Organic blob shapes */
+.hero-blob {
+  position: absolute; border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
+  animation: blobMorph 8s ease-in-out infinite alternate;
+  opacity: .12;
+}
+.hero-blob-1 { width: 500px; height: 500px; background: var(--blush); right: -100px; top: -80px; animation-delay: 0s; }
+.hero-blob-2 { width: 350px; height: 350px; background: var(--sage); left: -80px; bottom: 50px; animation-delay: 3s; }
+@keyframes blobMorph {
+  0%   { border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%; }
+  50%  { border-radius: 40% 60% 30% 70% / 60% 40% 60% 40%; }
+  100% { border-radius: 55% 45% 60% 40% / 45% 55% 45% 55%; }
+}
+.hero-content {
+  position: relative; z-index: 2; width: 100%;
+  max-width: 1200px; margin: 0 auto;
+  padding: 60px 5% 80px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+}
+.hero-text { }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: .72rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--sage2); margin-bottom: 20px;
+  animation: fadeUp .8s ease both;
+}
+.hero-title {
+  font-family: var(--fh); font-size: clamp(3rem, 5vw, 5rem);
+  line-height: 1.1; color: var(--text); margin-bottom: 20px;
+  animation: fadeUp .8s .15s ease both;
+}
+.hero-title em { color: var(--rose); font-style: italic; }
+.hero-desc {
+  font-size: 1.05rem; color: var(--text2); line-height: 1.75;
+  max-width: 440px; margin-bottom: 36px;
+  animation: fadeUp .8s .3s ease both;
+}
+.hero-btns {
+  display: flex; gap: 14px; flex-wrap: wrap;
+  animation: fadeUp .8s .45s ease both;
+}
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--rose); color: #fff; border: none; border-radius: 32px;
+  padding: 14px 28px; font-size: .9rem; font-weight: 600;
+  transition: all .2s; box-shadow: 0 6px 20px rgba(196,97,126,.35);
+}
+.btn-primary:hover { background: var(--rose2); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(196,97,126,.45); }
+.btn-outline {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent; color: var(--rose); border: 1.5px solid var(--blush2);
+  border-radius: 32px; padding: 13px 26px; font-size: .9rem; font-weight: 600;
+  transition: all .2s;
+}
+.btn-outline:hover { background: var(--blush); border-color: var(--rose); transform: translateY(-2px); }
+.hero-hours {
+  margin-top: 28px; display: flex; align-items: center; gap: 8px;
+  font-size: .82rem; color: var(--text2); animation: fadeUp .8s .6s ease both;
+}
+.hours-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--sage); animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.4)} }
+
+/* Hero flower illustration */
+.hero-visual {
+  display: flex; align-items: center; justify-content: center;
+  animation: fadeUp .8s .3s ease both;
+  position: relative;
+}
+.hero-flower-wrap {
+  position: relative; width: 380px; height: 380px;
+}
+.hf-ring {
+  position: absolute; border-radius: 50%;
+  border: 1px dashed rgba(196,97,126,.2);
+  animation: ringRot linear infinite;
+}
+.hf-ring-1 { inset: 0; animation-duration: 30s; }
+.hf-ring-2 { inset: 30px; animation-duration: 20s; animation-direction: reverse; }
+.hf-ring-3 { inset: 60px; animation-duration: 40s; }
+@keyframes ringRot { to { transform: rotate(360deg); } }
+.hf-center {
+  position: absolute; inset: 0; display: flex;
+  align-items: center; justify-content: center;
+}
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ============================================================  SECTIONS */
+.section-wrap { max-width: 1200px; margin: 0 auto; padding: 0 5%; }
+.section-label {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: .72rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--sage2); margin-bottom: 12px;
+  opacity: 0; transform: translateY(16px); transition: opacity .6s, transform .6s;
+}
+.section-title {
+  font-family: var(--fh); font-size: clamp(2.2rem, 4vw, 3.4rem);
+  line-height: 1.15; margin-bottom: 16px; color: var(--text);
+  opacity: 0; transform: translateY(24px); transition: opacity .6s .1s, transform .6s .1s;
+}
+.section-title .hl { color: var(--rose); }
+.section-sub {
+  font-size: 1rem; color: var(--text2); line-height: 1.7; max-width: 520px;
+  opacity: 0; transform: translateY(20px); transition: opacity .6s .2s, transform .6s .2s;
+}
+.ai .section-label, .ai .section-title, .ai .section-sub { opacity: 1; transform: translateY(0); }
+
+/* ============================================================  ABOUT */
+#about { padding: 100px 0; background: var(--cream); }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-top: 56px; }
+.about-card {
+  background: var(--card); border-radius: var(--radius); padding: 40px;
+  border: 1px solid var(--border); box-shadow: var(--shadow);
+  opacity: 0; transform: translateX(-30px); transition: opacity .6s, transform .6s;
+}
+.about-card.vis { opacity: 1; transform: translateX(0); }
+.about-card p { font-size: .97rem; color: var(--text2); line-height: 1.8; margin-bottom: 14px; }
+.about-card p:last-child { margin-bottom: 0; }
+.about-card strong { color: var(--rose); }
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.stat-box {
+  background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+  padding: 24px 20px; text-align: center;
+  opacity: 0; transform: translateY(20px); transition: opacity .5s, transform .5s;
+}
+.stat-box.vis { opacity: 1; transform: translateY(0); }
+.stat-box:hover { border-color: var(--blush2); box-shadow: 0 8px 24px rgba(196,97,126,.12); }
+.stat-num { font-family: var(--fh); font-size: 2.8rem; color: var(--rose); line-height: 1; }
+.stat-lbl { font-size: .75rem; font-weight: 500; color: var(--text2); margin-top: 4px; letter-spacing: 1px; text-transform: uppercase; }
+.stat-icon { margin: 0 auto 8px; }
+
+/* ============================================================  PROMO */
+#promo {
+  padding: 80px 0;
+  background: linear-gradient(135deg, var(--rose) 0%, #D4768C 50%, var(--blush2) 100%);
+  position: relative; overflow: hidden;
+}
+.promo-inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 5%;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+}
+.promo-badge {
+  display: inline-block; background: rgba(255,255,255,.2); border-radius: 20px;
+  padding: 5px 14px; font-size: .7rem; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: #fff; margin-bottom: 16px;
+}
+.promo-title { font-family: var(--fh); font-size: clamp(2rem, 4vw, 3rem); color: #fff; line-height: 1.2; margin-bottom: 14px; }
+.promo-desc { color: rgba(255,255,255,.85); font-size: .97rem; line-height: 1.7; margin-bottom: 28px; }
+.promo-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #fff; color: var(--rose2); border-radius: 32px;
+  padding: 13px 28px; font-weight: 700; font-size: .9rem; transition: all .2s;
+}
+.promo-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.15); }
+.promo-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.promo-card {
+  background: rgba(255,255,255,.15); backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,.3); border-radius: 16px; padding: 22px 18px;
+}
+.promo-card-num { font-family: var(--fh); font-size: 2rem; color: #fff; }
+.promo-card-txt { font-size: .82rem; color: rgba(255,255,255,.85); margin-top: 4px; }
+
+/* ============================================================  SERVICES */
+#services { padding: 100px 0; background: var(--ivory); }
+.svc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; }
+.svc-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 32px 26px; position: relative; overflow: hidden;
+  transition: transform .3s, box-shadow .3s, border-color .3s;
+  opacity: 0; transform: translateY(28px);
+}
+.svc-card.vis { opacity: 1; transform: translateY(0); }
+.svc-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--rose), var(--blush));
+  transform: scaleX(0); transition: transform .3s;
+}
+.svc-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(196,97,126,.15); border-color: var(--blush); }
+.svc-card:hover::before { transform: scaleX(1); }
+.svc-icon { margin-bottom: 18px; }
+.svc-name { font-family: var(--fh); font-size: 1.3rem; margin-bottom: 10px; }
+.svc-desc { color: var(--text2); font-size: .88rem; line-height: 1.7; margin-bottom: 20px; }
+.svc-price { font-family: var(--fh); font-size: 1.5rem; color: var(--rose); }
+.svc-price small { font-family: var(--fb); font-size: .72rem; color: var(--text2); font-weight: 400; }
+.svc-badge { position: absolute; top: 16px; right: 16px; background: var(--sage); color: #fff; font-size: .62rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 10px; border-radius: 10px; }
+.svc-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: .8rem; font-weight: 600; color: var(--rose); margin-top: 16px;
+  transition: gap .2s;
+}
+.svc-card:hover .svc-btn { gap: 10px; }
+
+/* ============================================================  REVIEWS */
+#reviews { padding: 100px 0; background: var(--cream); }
+.slider-outer { max-width: 1200px; margin: 56px auto 0; padding: 0 5%; overflow: hidden; position: relative; }
+.slider-track { display: flex; transition: transform .5s cubic-bezier(.4,0,.2,1); }
+.review-card {
+  flex-shrink: 0; background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 32px 28px; position: relative;
+}
+.review-quote-icon { position: absolute; top: 20px; right: 24px; opacity: .08; }
+.review-stars { display: flex; gap: 3px; margin-bottom: 14px; }
+.review-text { font-size: .92rem; color: var(--text2); line-height: 1.75; margin-bottom: 20px; font-style: italic; }
+.review-author { font-weight: 600; font-size: .88rem; }
+.review-date { font-size: .74rem; color: var(--text2); margin-top: 2px; }
+.slider-nav { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 32px; }
+.slider-btn {
+  width: 42px; height: 42px; border-radius: 50%; border: 1.5px solid var(--border);
+  background: var(--card); display: flex; align-items: center; justify-content: center;
+  color: var(--rose); transition: all .2s; cursor: pointer;
+}
+.slider-btn:hover { background: var(--rose); color: #fff; border-color: var(--rose); }
+.slider-dots { display: flex; gap: 7px; }
+.sdot { width: 8px; height: 8px; border-radius: 50%; background: var(--blush); cursor: pointer; transition: all .2s; }
+.sdot.on { background: var(--rose); width: 22px; border-radius: 4px; }
+
+/* ============================================================  BRANCHES */
+#branches { padding: 100px 0; background: var(--ivory); }
+.branches-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 48px; align-items: start; margin-top: 56px; }
+.branch-list { display: flex; flex-direction: column; gap: 16px; }
+.branch-item {
+  background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+  padding: 20px; display: flex; gap: 14px; align-items: flex-start;
+  cursor: pointer; transition: all .2s;
+  opacity: 0; transform: translateX(-20px);
+}
+.branch-item.vis { opacity: 1; transform: translateX(0); }
+.branch-item:hover, .branch-item.on { border-color: var(--rose); background: #FDF0F3; }
+[data-theme="dark"] .branch-item.on { background: rgba(196,97,126,.1); }
+.branch-num { font-family: var(--fh); font-size: 1.8rem; color: var(--rose); min-width: 36px; line-height: 1; }
+.branch-name { font-weight: 700; font-size: .92rem; margin-bottom: 3px; }
+.branch-addr { font-size: .8rem; color: var(--text2); margin-bottom: 6px; }
+.branch-meta { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.branch-status { font-size: .72rem; font-weight: 600; color: var(--sage2); display: flex; align-items: center; gap: 4px; }
+.branch-status.closed { color: var(--text2); }
+.branch-stars { display: flex; align-items: center; gap: 4px; font-size: .72rem; color: var(--text2); }
+.branch-link { font-size: .75rem; font-weight: 600; color: var(--rose); display: flex; align-items: center; gap: 4px; transition: gap .2s; }
+.branch-link:hover { gap: 8px; }
+.map-frame { border-radius: var(--radius); overflow: hidden; height: 420px; border: 1px solid var(--border); }
+.map-frame iframe { width: 100%; height: 100%; border: none; }
+.branch-info-box { background: rgba(196,97,126,.07); border: 1px solid var(--border); border-radius: 12px; padding: 14px; font-size: .78rem; color: var(--text2); margin-top: 8px; line-height: 1.6; }
+
+/* ============================================================  SOCIALS */
+#socials { padding: 100px 0; background: var(--cream); text-align: center; }
+.soc-grid { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 48px; }
+.soc-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 20px;
+  padding: 36px 44px; display: flex; flex-direction: column; align-items: center; gap: 14px;
+  min-width: 180px; transition: all .3s;
+  opacity: 0; transform: translateY(20px);
+}
+.soc-card.vis { opacity: 1; transform: translateY(0); }
+.soc-card:hover { transform: translateY(-8px); border-color: var(--rose); box-shadow: 0 16px 36px rgba(196,97,126,.15); }
+.soc-name { font-weight: 700; font-size: .85rem; letter-spacing: 1.5px; text-transform: uppercase; }
+.soc-handle { font-size: .75rem; color: var(--text2); }
+
+/* ============================================================  CONTACT */
+#contact { padding: 100px 0; background: var(--ivory); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 56px; }
+.contact-info { display: flex; flex-direction: column; gap: 24px; }
+.ci-item {
+  display: flex; gap: 14px; align-items: flex-start;
+  opacity: 0; transform: translateX(-16px); transition: opacity .5s, transform .5s;
+}
+.ci-item.vis { opacity: 1; transform: translateX(0); }
+.ci-icon { width: 44px; height: 44px; border-radius: 12px; background: var(--blush); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.ci-lbl { font-size: .7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text2); margin-bottom: 3px; }
+.ci-val { font-size: .95rem; font-weight: 600; }
+.ci-val a { color: var(--rose); }
+.contact-form { display: flex; flex-direction: column; gap: 14px; }
+.fg { display: flex; flex-direction: column; gap: 5px; }
+.fg label { font-size: .72rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text2); }
+.fg input, .fg textarea {
+  background: var(--card); border: 1.5px solid var(--border); border-radius: 12px;
+  padding: 12px 16px; color: var(--text); font-family: var(--fb); font-size: .9rem;
+  outline: none; transition: border-color .2s, box-shadow .2s;
+}
+.fg input:focus, .fg textarea:focus { border-color: var(--blush2); box-shadow: 0 0 0 3px rgba(242,196,206,.3); }
+.fg textarea { resize: vertical; min-height: 110px; }
+.form-submit {
+  background: var(--rose); color: #fff; border: none; border-radius: 32px;
+  padding: 14px 28px; font-family: var(--fb); font-weight: 700; font-size: .9rem;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  transition: all .2s; box-shadow: 0 6px 18px rgba(196,97,126,.3);
+}
+.form-submit:hover { background: var(--rose2); transform: translateY(-2px); }
+
+/* ============================================================  FOOTER */
+footer { background: var(--moss); color: rgba(255,255,255,.85); padding: 56px 5% 28px; }
+.footer-inner { max-width: 1200px; margin: 0 auto; }
+.footer-top { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px; margin-bottom: 40px; }
+.footer-logo { font-family: var(--fh); font-size: 1.6rem; color: #fff; margin-bottom: 8px; }
+.footer-tagline { font-size: .82rem; opacity: .65; max-width: 200px; line-height: 1.6; }
+.footer-links-title { font-size: .7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; opacity: .6; margin-bottom: 12px; }
+.footer-links { display: flex; flex-direction: column; gap: 8px; }
+.footer-links a { font-size: .85rem; opacity: .75; transition: opacity .2s; }
+.footer-links a:hover { opacity: 1; }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,.15); padding-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; font-size: .75rem; opacity: .55; }
+
+/* ============================================================  FLOATING WA */
+#wa-float {
+  position: fixed; bottom: 26px; right: 26px; z-index: 900;
+  width: 58px; height: 58px; border-radius: 50%; background: #25D366;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 6px 20px rgba(37,211,102,.5);
+  animation: waPulse 2.5s ease-in-out infinite;
+  transition: transform .2s;
+}
+#wa-float:hover { transform: scale(1.1); animation: none; }
+@keyframes waPulse { 0%,100%{box-shadow:0 6px 20px rgba(37,211,102,.5)} 50%{box-shadow:0 6px 36px rgba(37,211,102,.85)} }
+
+/* SCROLL TOP */
+#scrolltop {
+  position: fixed; bottom: 96px; right: 26px; z-index: 900;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--card); border: 1.5px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--rose); cursor: pointer;
+  opacity: 0; pointer-events: none; transition: all .3s;
+  box-shadow: var(--shadow);
+}
+#scrolltop.vis { opacity: 1; pointer-events: auto; }
+#scrolltop:hover { background: var(--rose); color: #fff; border-color: var(--rose); }
+
+/* REVEAL */
+.rv { opacity: 0; transform: translateY(28px); transition: opacity .6s, transform .6s; }
+.rv.vis { opacity: 1; transform: translateY(0); }
+
+/* ============================================================  RESPONSIVE */
+@media (max-width: 1024px) {
+  .svc-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 900px) {
+  .hero-content { grid-template-columns: 1fr; text-align: center; }
+  .hero-desc { margin-left: auto; margin-right: auto; }
+  .hero-btns { justify-content: center; }
+  .hero-hours { justify-content: center; }
+  .hero-visual { display: none; }
+  .about-grid { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .promo-inner { grid-template-columns: 1fr; }
+  .branches-grid { grid-template-columns: 1fr; }
+  .review-card { min-width: calc(50% - 12px); }
+}
+@media (max-width: 640px) {
+  .nav-links, .nav-right { display: none; }
+  .burger { display: flex; }
+  .svc-grid { grid-template-columns: 1fr; }
+  .review-card { min-width: 100%; margin-right: 0; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .promo-cards { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== LOADER ===== -->
+<div id="loader">
+  <div class="ld-flower">
+    <div class="ld-petal"></div><div class="ld-petal"></div>
+    <div class="ld-petal"></div><div class="ld-petal"></div>
+    <div class="ld-petal"></div><div class="ld-petal"></div>
+    <div class="ld-center"></div>
+  </div>
+  <div class="ld-text">Crocus Flowers</div>
+</div>
+
+<!-- ===== FLOATING WA ===== -->
+<a id="wa-float" href="https://api.whatsapp.com/send/?phone=77770496450&text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21+%D0%9F%D0%B8%D1%88%D1%83+%D0%B8%D0%B7+Crocus+Flowers." target="_blank" title="WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+    <path d="M20.2 7.9C18.6 6.2 16.4 5.2 14 5.2c-5 0-9 4-9 9 0 1.6.4 3.1 1.2 4.5L5 23l4.5-1.2c1.3.7 2.8 1.1 4.3 1.1 5 0 9-4 9-9-.1-2.4-1.1-4.6-2.6-6zm-6.2 13.9c-1.3 0-2.6-.4-3.7-1l-.3-.2-2.7.7.7-2.6-.2-.3c-.7-1.1-1.1-2.4-1.1-3.7 0-4 3.2-7.2 7.2-7.2 2 0 3.8.8 5.1 2.1 1.4 1.4 2.1 3.2 2.1 5.1 0 4-3.2 7.1-7.1 7.1zm3.9-5.4c-.2-.1-1.3-.6-1.5-.7-.2-.1-.3-.1-.5.1-.1.2-.5.7-.6.8-.1.1-.2.2-.4.1-.2-.1-.9-.3-1.7-1-.6-.6-1-1.2-1.1-1.4-.1-.2 0-.3.1-.4l.3-.3.2-.3.1-.3-.9-2.2c-.2-.6-.5-.5-.7-.5h-.4c-.2 0-.5.1-.7.3-.2.2-.8.8-.8 1.8s.8 2.1.9 2.2c.1.1 1.5 2.4 3.7 3.3.5.2.9.3 1.2.4.5.2 1 .2 1.4.1.4-.1 1.3-.5 1.5-1 .2-.5.2-.9.1-1-.2-.1-.3-.1-.5-.2z" fill="white"/>
+  </svg>
+</a>
+
+<!-- ===== SCROLL TOP ===== -->
+<button id="scrolltop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Наверх">
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+    <path d="M8 12V4M4 8l4-4 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</button>
+
+<!-- ===== NAVBAR ===== -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <!-- Crocus logo SVG -->
+    <svg class="nav-logo-icon" viewBox="0 0 32 32" fill="none">
+      <circle cx="16" cy="16" r="15" fill="#F2C4CE" stroke="#C4617E" stroke-width="1"/>
+      <path d="M16 24c0 0-7-5-7-10a7 7 0 0114 0c0 5-7 10-7 10z" fill="#C4617E" opacity=".25"/>
+      <ellipse cx="16" cy="9" rx="3" ry="5" fill="#C4617E" opacity=".8" transform="rotate(0 16 16) translate(0 -7)"/>
+      <ellipse cx="16" cy="9" rx="3" ry="5" fill="#E8A0B0" opacity=".8" transform="rotate(60 16 16) translate(0 0)"/>
+      <ellipse cx="16" cy="9" rx="3" ry="5" fill="#C4617E" opacity=".8" transform="rotate(120 16 16) translate(0 0)"/>
+      <ellipse cx="16" cy="9" rx="3" ry="5" fill="#E8A0B0" opacity=".8" transform="rotate(180 16 16) translate(0 0)"/>
+      <ellipse cx="16" cy="9" rx="3" ry="5" fill="#C4617E" opacity=".8" transform="rotate(240 16 16) translate(0 0)"/>
+      <ellipse cx="16" cy="9" rx="3" ry="5" fill="#E8A0B0" opacity=".8" transform="rotate(300 16 16) translate(0 0)"/>
+      <circle cx="16" cy="16" r="4" fill="#7BAE8A"/>
+    </svg>
+    Crocus Flowers
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#about" data-ru="О нас" data-kz="Біз туралы">О нас</a></li>
+    <li><a href="#services" data-ru="Услуги" data-kz="Қызметтер">Услуги</a></li>
+    <li><a href="#reviews" data-ru="Отзывы" data-kz="Пікірлер">Отзывы</a></li>
+    <li><a href="#branches" data-ru="Филиалы" data-kz="Филиалдар">Филиалы</a></li>
+    <li><a href="#contact" data-ru="Контакты" data-kz="Байланыс">Контакты</a></li>
+  </ul>
+
+  <div class="nav-right">
+    <button class="nav-lang" id="langBtn" onclick="toggleLang()">ҚАЗ</button>
+    <button class="nav-icon-btn" id="themeBtn" onclick="toggleTheme()" title="Тема">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" id="themeIco">
+        <circle cx="8" cy="8" r="3.5" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M8 1v1.5M8 13.5V15M1 8h1.5M13.5 8H15M3.05 3.05l1.06 1.06M11.89 11.89l1.06 1.06M3.05 12.95l1.06-1.06M11.89 4.11l1.06-1.06" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <a href="https://api.whatsapp.com/send/?phone=77770496450&text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21" target="_blank" class="nav-cta">
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+        <path d="M10.8 4.3C10 3.5 8.9 3 7.5 3a5.5 5.5 0 000 11c.96 0 1.88-.27 2.66-.74L13 14l-.74-2.84A5.47 5.47 0 0013 8.5c0-1.4-.5-2.6-1.3-3.5a.5.5 0 00-.1-.1.5.5 0 00-.8.4zm-3.3 8.2a4 4 0 01-2.2-.7l-.15-.1-1.65.43.44-1.62-.12-.17A4 4 0 1110.8 5.6 4 4 0 017.5 12.5z" fill="white"/>
+      </svg>
+      <span data-ru="Написать" data-kz="Жазу">Написать</span>
+    </a>
+  </div>
+  <button class="burger" id="burger" onclick="toggleMM()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile menu -->
+<div id="mmenu">
+  <a href="#about" onclick="closeMM()" data-ru="О нас" data-kz="Біз туралы">О нас</a>
+  <a href="#services" onclick="closeMM()" data-ru="Услуги" data-kz="Қызметтер">Услуги</a>
+  <a href="#reviews" onclick="closeMM()" data-ru="Отзывы" data-kz="Пікірлер">Отзывы</a>
+  <a href="#branches" onclick="closeMM()" data-ru="Филиалы" data-kz="Филиалдар">Филиалы</a>
+  <a href="#contact" onclick="closeMM()" data-ru="Контакты" data-kz="Байланыс">Контакты</a>
+  <a href="https://api.whatsapp.com/send/?phone=77770496450" target="_blank" data-ru="Написать в WhatsApp" data-kz="WhatsApp-қа жазу">Написать в WhatsApp</a>
+</div>
+
+<!-- ===== HERO ===== -->
+<section id="hero">
+  <div class="petals-bg" id="petalsContainer"></div>
+  <div class="hero-blob hero-blob-1"></div>
+  <div class="hero-blob hero-blob-2"></div>
+
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-eyebrow">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M8 1C8 1 5 4 5 8a3 3 0 006 0C11 4 8 1 8 1z" fill="#7BAE8A"/>
+        </svg>
+        <span data-ru="Цветочный магазин · Астана" data-kz="Гүл дүкені · Астана">Цветочный магазин · Астана</span>
+      </div>
+      <h1 class="hero-title">
+        <span data-ru="Цветы, которые <em>говорят</em> за вас" data-kz="Сіздің орныңызда <em>сөйлейтін</em> гүлдер">Цветы, которые <em>говорят</em> за вас</span>
+      </h1>
+      <p class="hero-desc" data-ru="Свежие букеты, авторские композиции и доставка 24/7. Мы создаём эмоции, которые остаются надолго." data-kz="Жаңа гүл шоқтары, авторлық композициялар және тәулік бойы жеткізу. Біз ұзаққа қалатын сезімдер жасаймыз.">Свежие букеты, авторские композиции и доставка 24/7. Мы создаём эмоции, которые остаются надолго.</p>
+      <div class="hero-btns">
+        <a href="#services" class="btn-primary">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1C8 1 4 4.5 4 8a4 4 0 008 0C12 4.5 8 1 8 1z" fill="white" opacity=".9"/></svg>
+          <span data-ru="Смотреть букеты" data-kz="Гүл шоқтарын қарау">Смотреть букеты</span>
+        </a>
+        <a href="https://api.whatsapp.com/send/?phone=77770496450&text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21+%D0%A5%D0%BE%D1%87%D1%83+%D1%81%D0%B4%D0%B5%D0%BB%D0%B0%D1%82%D1%8C+%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7." target="_blank" class="btn-outline">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M11.4 4.6C10.5 3.7 9.3 3.1 8 3.1a5 5 0 000 10c.87 0 1.7-.24 2.4-.67L13 13l-.67-2.57A5 5 0 0013 8a5 5 0 00-1.6-3.4z" stroke="#C4617E" stroke-width="1.3"/></svg>
+          <span data-ru="Заказать" data-kz="Тапсырыс беру">Заказать</span>
+        </a>
+      </div>
+      <div class="hero-hours">
+        <div class="hours-dot"></div>
+        <span data-ru="Работаем круглосуточно, 7 дней в неделю" data-kz="Тәулік бойы, аптасына 7 күн жұмыс жасаймыз">Работаем круглосуточно, 7 дней в неделю</span>
+      </div>
+    </div>
+
+    <!-- SVG hero illustration -->
+    <div class="hero-visual">
+      <div class="hero-flower-wrap">
+        <div class="hf-ring hf-ring-1"></div>
+        <div class="hf-ring hf-ring-2"></div>
+        <div class="hf-ring hf-ring-3"></div>
+        <div class="hf-center">
+          <svg width="240" height="240" viewBox="0 0 240 240" fill="none">
+            <!-- Bouquet illustration -->
+            <!-- Stems -->
+            <path d="M100 220 Q95 180 105 140" stroke="#5A9068" stroke-width="3" stroke-linecap="round" fill="none"/>
+            <path d="M120 220 Q120 175 120 135" stroke="#5A9068" stroke-width="3" stroke-linecap="round" fill="none"/>
+            <path d="M140 220 Q145 180 135 140" stroke="#5A9068" stroke-width="3" stroke-linecap="round" fill="none"/>
+            <path d="M108 220 Q100 190 90 160" stroke="#5A9068" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <path d="M132 220 Q140 190 150 160" stroke="#5A9068" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <!-- Leaves -->
+            <path d="M100 180 Q85 165 90 150 Q100 170 105 178" fill="#7BAE8A"/>
+            <path d="M140 175 Q155 162 150 148 Q140 168 136 175" fill="#7BAE8A"/>
+            <path d="M90 165 Q75 155 80 140 Q90 158 95 164" fill="#5A9068" opacity=".7"/>
+            <!-- Wrap -->
+            <path d="M88 220 Q120 225 152 220 L148 200 Q120 208 92 200z" fill="#F2C4CE" opacity=".8"/>
+            <path d="M92 200 Q120 208 148 200 L145 185 Q120 195 95 185z" fill="#E8A0B0" opacity=".8"/>
+            <!-- Roses -->
+            <g transform="translate(105,135)">
+              <circle cx="0" cy="0" r="18" fill="#C4617E" opacity=".15"/>
+              <path d="M0 -14 Q8 -10 10 0 Q8 10 0 14 Q-8 10 -10 0 Q-8 -10 0 -14z" fill="#E8A0B0"/>
+              <path d="M0 -10 Q6 -7 8 0 Q6 7 0 10 Q-6 7 -8 0 Q-6 -7 0 -10z" fill="#D4748C"/>
+              <circle cx="0" cy="0" r="4" fill="#C4617E"/>
+            </g>
+            <g transform="translate(135,125)">
+              <circle cx="0" cy="0" r="16" fill="#C4617E" opacity=".12"/>
+              <path d="M0 -12 Q7 -8 9 0 Q7 8 0 12 Q-7 8 -9 0 Q-7 -8 0 -12z" fill="#F2C4CE"/>
+              <path d="M0 -9 Q5 -6 7 0 Q5 6 0 9 Q-5 6 -7 0 Q-5 -6 0 -9z" fill="#E8A0B0"/>
+              <circle cx="0" cy="0" r="3.5" fill="#C4617E"/>
+            </g>
+            <g transform="translate(115,118)">
+              <circle cx="0" cy="0" r="20" fill="#C4617E" opacity=".1"/>
+              <path d="M0 -16 Q9 -11 11 0 Q9 11 0 16 Q-9 11 -11 0 Q-9 -11 0 -16z" fill="#C4617E" opacity=".7"/>
+              <path d="M0 -12 Q7 -8 9 0 Q7 8 0 12 Q-7 8 -9 0 Q-7 -8 0 -12z" fill="#D4748C"/>
+              <circle cx="0" cy="0" r="5" fill="#A84A65"/>
+            </g>
+            <!-- Small flowers -->
+            <g transform="translate(92,128)">
+              <circle cx="0" cy="0" r="8" fill="#F2C4CE" opacity=".5"/>
+              <path d="M0 -7 Q4 -4 5 0 Q4 4 0 7 Q-4 4 -5 0 Q-4 -4 0 -7z" fill="#F2C4CE"/>
+              <circle cx="0" cy="0" r="2.5" fill="#E8A0B0"/>
+            </g>
+            <g transform="translate(148,118)">
+              <path d="M0 -7 Q4 -4 5 0 Q4 4 0 7 Q-4 4 -5 0 Q-4 -4 0 -7z" fill="#F2C4CE" opacity=".9"/>
+              <circle cx="0" cy="0" r="2.5" fill="#C4617E"/>
+            </g>
+            <!-- White flowers -->
+            <g transform="translate(125,108)">
+              <path d="M0-8 C2-4 6-2 8 0 C6 2 2 6 0 8 C-2 6-6 2-8 0 C-6-2-2-4 0-8z" fill="white" opacity=".9"/>
+              <circle cx="0" cy="0" r="3" fill="#F5C542"/>
+            </g>
+            <g transform="translate(102,112)">
+              <path d="M0-7 C2-3 5-2 7 0 C5 2 2 5 0 7 C-2 5-5 2-7 0 C-5-2-2-3 0-7z" fill="white" opacity=".85"/>
+              <circle cx="0" cy="0" r="2.5" fill="#F5C542"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section id="about">
+  <div class="section-wrap">
+    <span class="section-label">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1C7 1 4 4 4 7a3 3 0 006 0C10 4 7 1 7 1z" fill="#5A9068"/></svg>
+      <span data-ru="О нас" data-kz="Біз туралы">О нас</span>
+    </span>
+    <h2 class="section-title" data-ru="С любовью к <span class='hl'>каждому</span> букету" data-kz="Әр <span class='hl'>гүл шоқына</span> деген сүйіспеншілікпен">С любовью к <span class="hl">каждому</span> букету</h2>
+    <p class="section-sub" data-ru="Crocus Flowers — это не просто цветочный магазин. Это место, где рождаются эмоции." data-kz="Crocus Flowers — бұл жай ғана гүл дүкені емес. Бұл эмоциялар туатын орын.">Crocus Flowers — это не просто цветочный магазин. Это место, где рождаются эмоции.</p>
+
+    <div class="about-grid">
+      <div class="about-card rv">
+        <p><strong>Crocus Flowers</strong> — один из ведущих цветочных магазинов Астаны, работающий <strong>круглосуточно</strong>. Мы предлагаем только свежие цветы, бережно отобранные у проверенных поставщиков.</p>
+        <p>Наши флористы с любовью создают каждый букет — от классических роз до экзотических композиций. Мы верим, что <strong>правильный букет</strong> способен передать то, что сложно выразить словами.</p>
+        <p>4 точки продаж в разных районах города, доставка и возможность заказа онлайн 24/7.</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-box">
+          <div class="stat-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <path d="M16 3C16 3 8 9 8 17a8 8 0 0016 0C24 9 16 3 16 3z" fill="#F2C4CE"/>
+              <path d="M16 8C16 8 11 12 11 17a5 5 0 0010 0C21 12 16 8 16 8z" fill="#C4617E" opacity=".6"/>
+              <circle cx="16" cy="17" r="3" fill="#C4617E"/>
+            </svg>
+          </div>
+          <div class="stat-num" data-target="4">0</div>
+          <div class="stat-lbl" data-ru="Магазина в Астане" data-kz="Астанадағы дүкен">Магазина в Астане</div>
+        </div>
+        <div class="stat-box" style="transition-delay:.1s">
+          <div class="stat-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <circle cx="16" cy="16" r="13" stroke="#7BAE8A" stroke-width="2" fill="none"/>
+              <path d="M16 9v7l4 4" stroke="#7BAE8A" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="stat-num" data-target="24">0</div>
+          <div class="stat-lbl" data-ru="Часа в сутки" data-kz="Сағат тәулік бойы">Часа в сутки</div>
+        </div>
+        <div class="stat-box" style="transition-delay:.2s">
+          <div class="stat-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <path d="M16 4L19.09 11.26L27 12.27L21.5 17.64L22.9 25.5L16 21.77L9.1 25.5L10.5 17.64L5 12.27L12.91 11.26L16 4z" fill="#F2C4CE" stroke="#C4617E" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <div class="stat-num" data-target="392">0</div>
+          <div class="stat-lbl" data-ru="Оценок на картах" data-kz="Картадағы бағалар">Оценок на картах</div>
+        </div>
+        <div class="stat-box" style="transition-delay:.3s">
+          <div class="stat-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <path d="M16 5C10 5 5 10 5 16s5 11 11 11 11-5 11-11S22 5 16 5z" fill="#7BAE8A" opacity=".2" stroke="#7BAE8A" stroke-width="1.5"/>
+              <path d="M11 16l3 3 7-7" stroke="#5A9068" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="stat-num" data-target="100">0</div>
+          <div class="stat-lbl" data-ru="% свежих цветов" data-kz="% жаңа гүлдер">% свежих цветов</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROMO ===== -->
+<section id="promo">
+  <div class="promo-inner">
+    <div class="rv">
+      <div class="promo-badge" data-ru="Специальное предложение" data-kz="Арнайы ұсыныс">Специальное предложение</div>
+      <h2 class="promo-title" data-ru="Скидка 15% на первый заказ" data-kz="Бірінші тапсырысқа 15% жеңілдік">Скидка 15% на первый заказ</h2>
+      <p class="promo-desc" data-ru="Закажите букет онлайн через WhatsApp и получите скидку 15% на первый заказ. Действует для всех новых клиентов." data-kz="WhatsApp арқылы онлайн гүл шоқтарын тапсырыс беріп, бірінші тапсырысыңызға 15% жеңілдік алыңыз.">Закажите букет онлайн через WhatsApp и получите скидку 15% на первый заказ. Действует для всех новых клиентов.</p>
+      <a href="https://api.whatsapp.com/send/?phone=77770496450&text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21+%D0%A5%D0%BE%D1%87%D1%83+%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C+%D1%81+%D1%81%D0%BA%D0%B8%D0%B4%D0%BA%D0%BE%D0%B9+15%25." target="_blank" class="promo-btn">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M11 4C10 3 9 2.5 8 2.5a5.5 5.5 0 000 11c.86 0 1.67-.22 2.4-.6L13 13l-.6-2.3A5.5 5.5 0 0013 8a5.5 5.5 0 00-2-4z" fill="#C4617E"/></svg>
+        <span data-ru="Заказать со скидкой" data-kz="Жеңілдікпен тапсырыс беру">Заказать со скидкой</span>
+      </a>
+    </div>
+    <div class="promo-cards rv" style="transition-delay:.15s">
+      <div class="promo-card">
+        <div class="promo-card-num">15%</div>
+        <div class="promo-card-txt" data-ru="Скидка на первый заказ" data-kz="Бірінші тапсырысқа жеңілдік">Скидка на первый заказ</div>
+      </div>
+      <div class="promo-card">
+        <div class="promo-card-num">24/7</div>
+        <div class="promo-card-txt" data-ru="Доставка по Астане" data-kz="Астана бойынша жеткізу">Доставка по Астане</div>
+      </div>
+      <div class="promo-card">
+        <div class="promo-card-num">4</div>
+        <div class="promo-card-txt" data-ru="Точки самовывоза" data-kz="Өздігінен алу нүктелері">Точки самовывоза</div>
+      </div>
+      <div class="promo-card">
+        <div class="promo-card-num">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <path d="M16 4L19 11.5L27 12.5L21.5 18L23 26L16 22L9 26L10.5 18L5 12.5L13 11.5z" fill="white" opacity=".85"/>
+          </svg>
+        </div>
+        <div class="promo-card-txt" data-ru="Свежие цветы каждый день" data-kz="Күн сайын жаңа гүлдер">Свежие цветы каждый день</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SERVICES ===== -->
+<section id="services">
+  <div class="section-wrap">
+    <span class="section-label">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5" fill="#F2C4CE" stroke="#C4617E" stroke-width="1"/></svg>
+      <span data-ru="Наши услуги" data-kz="Біздің қызметтеріміз">Наши услуги</span>
+    </span>
+    <h2 class="section-title" data-ru="Букеты для <span class='hl'>каждого</span> случая" data-kz="Кез келген <span class='hl'>жағдайға</span> гүл шоқтары">Букеты для <span class="hl">каждого</span> случая</h2>
+
+    <div class="svc-grid">
+      <!-- Card 1 -->
+      <div class="svc-card">
+        <div class="svc-icon">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <rect width="48" height="48" rx="14" fill="#FDF0F3"/>
+            <path d="M24 10C24 10 16 16 16 24a8 8 0 0016 0C32 16 24 10 24 10z" fill="#F2C4CE"/>
+            <path d="M24 14C24 14 19 19 19 24a5 5 0 0010 0C29 19 24 14 24 14z" fill="#C4617E" opacity=".7"/>
+            <circle cx="24" cy="24" r="3" fill="#A84A65"/>
+          </svg>
+        </div>
+        <div class="svc-badge" data-ru="Хит" data-kz="Хит">Хит</div>
+        <div class="svc-name" data-ru="Классические розы" data-kz="Классикалық раушан">Классические розы</div>
+        <p class="svc-desc" data-ru="Вечная классика — свежие розы разных сортов и оттенков. Идеальный подарок для любого случая." data-kz="Мәңгілік классика — алуан түрлі сорттар мен реңктердегі жаңа раушандар.">Вечная классика — свежие розы разных сортов и оттенков. Идеальный подарок для любого случая.</p>
+        <div class="svc-price">от 3 500 ₸ <small data-ru="/ букет" data-kz="/ гүл шоқ">/ букет</small></div>
+        <a href="https://api.whatsapp.com/send/?phone=77770496450&text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21+%D0%A5%D0%BE%D1%87%D1%83+%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C+%D1%80%D0%BE%D0%B7%D1%8B." target="_blank" class="svc-btn">
+          <span data-ru="Заказать" data-kz="Тапсырыс беру">Заказать</span>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="#C4617E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="svc-card" style="transition-delay:.1s">
+        <div class="svc-icon">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <rect width="48" height="48" rx="14" fill="#EEF6F0"/>
+            <path d="M24 12C24 12 14 18 14 26a10 10 0 0020 0C34 18 24 12 24 12z" fill="#7BAE8A" opacity=".4"/>
+            <path d="M18 22 Q14 18 16 13 Q20 20 20 22" fill="#7BAE8A"/>
+            <path d="M30 22 Q34 18 32 13 Q28 20 28 22" fill="#5A9068"/>
+            <circle cx="24" cy="22" r="5" fill="#7BAE8A"/>
+            <circle cx="24" cy="22" r="2.5" fill="#5A9068"/>
+          </svg>
+        </div>
+        <div class="svc-name" data-ru="Авторские композиции" data-kz="Авторлық композициялар">Авторские композиции</div>
+        <p class="svc-desc" data-ru="Уникальные флористические композиции, созданные нашими мастерами. Микс экзотических и местных цветов." data-kz="Біздің шеберлеріміз жасаған бірегей флористикалық композициялар.">Уникальные флористические композиции, созданные нашими мастерами. Микс экзотических и местных цветов.</p>
+        <div class="svc-price">от 8 000 ₸ <small data-ru="/ композиция" data-kz="/ композиция">/ композиция</small></div>
+        <a href="https://api.whatsapp.com/send/?phone=77770496450&text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21+%D0%A5%D0%BE%D1%87%D1%83+%D0%B0%D0%B2%D1%82%D0%BE%D1%80%D1%81%D0%BA%D1%83%D1%8E+%D0%BA%D0%BE%D0%BC%D0%BF%D0%BE%D0%B7%D0%B8%D1%86%D0%B8%D1%8E." target="_blank" class="svc-btn">
+          <span data-ru="Заказать" data-kz="Тапсырыс беру">Заказать</span>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="#C4617E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="svc-card" style="transition-delay:.2s">
+        <div class="svc-icon">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <rect width="48" height="48" rx="14" fill="#FDF5EE"/>
+            <rect x="12" y="28" width="24" height="10" rx="3" fill="#E8A0B0" opacity=".6"/>
+            <rect x="14" y="26" width="20" height="4" rx="2" fill="#C4617E" opacity=".7"/>
+            <path d="M20 26 L20 16 Q24 12 28 16 L28 26" fill="#F2C4CE"/>
+            <circle cx="24" cy="16" r="4" fill="#C4617E" opacity=".6"/>
+          </svg>
+        </div>
+        <div class="svc-name" data-ru="Подарочные боксы" data-kz="Сыйлық қораптары">Подарочные боксы</div>
+        <p class="svc-desc" data-ru="Цветы в стильных шляпных коробках и деревянных ящиках. Красиво упакованный подарок, который запомнится." data-kz="Сән шляпа қораптары мен ағаш жәшіктердегі гүлдер.">Цветы в стильных шляпных коробках и деревянных ящиках. Красиво упакованный подарок, который запомнится.</p>
+        <div class="svc-price">от 12 000 ₸ <small data-ru="/ бокс" data-kz="/ қорап">/ бокс</small></div>
+        <a href="https://api.whatsapp.com/send/?phone=77770496450&text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21+%D0%A5%D0%BE%D1%87%D1%83+%D0%B1%D0%BE%D0%BA%D1%81+%D1%81+%D1%86%D0%B2%D0%B5%D1%82%D0%B0%D0%BC%D0%B8." target="_blank" class="svc-btn">
+          <span data-ru="Заказать" data-kz="Тапсырыс беру">Заказать</span>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="#C4617E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="svc-card" style="transition-delay:.25s">
+        <div class="svc-icon">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <rect width="48" height="48" rx="14" fill="#EEF6F0"/>
+            <path d="M24 10L29 20H39L31 26L34 36L24 30L14 36L17 26L9 20H19z" fill="#7BAE8A" opacity=".3"/>
+            <circle cx="24" cy="24" r="8" fill="#7BAE8A" opacity=".7"/>
+            <circle cx="24" cy="24" r="5" fill="#5A9068"/>
+          </svg>
+        </div>
+        <div class="svc-name" data-ru="Свадебные букеты" data-kz="Үйлену гүл шоқтары">Свадебные букеты</div>
+        <p class="svc-desc" data-ru="Букеты невесты и свадебный декор под любую концепцию. Работаем с предварительными заказами." data-kz="Кез келген концепцияға сәйкес келін гүл шоқтары мен үйлену безендіруі.">Букеты невесты и свадебный декор под любую концепцию. Работаем с предварительными заказами.</p>
+        <div class="svc-price" data-ru="по запросу" data-kz="сұрау бойынша">по запросу</div>
+        <a href="https://api.whatsapp.com/send/?phone=77770496450&text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21+%D0%A5%D0%BE%D1%87%D1%83+%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C+%D1%81%D0%B2%D0%B0%D0%B4%D0%B5%D0%B1%D0%BD%D1%8B%D0%B9+%D0%B1%D1%83%D0%BA%D0%B5%D1%82." target="_blank" class="svc-btn">
+          <span data-ru="Обсудить" data-kz="Талқылау">Обсудить</span>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="#C4617E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="svc-card" style="transition-delay:.3s">
+        <div class="svc-icon">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <rect width="48" height="48" rx="14" fill="#FDF0F3"/>
+            <circle cx="24" cy="20" r="8" fill="#F2C4CE"/>
+            <path d="M20 16 C18 14 19 11 22 12 C22 12 21 16 24 17" fill="#C4617E" opacity=".5"/>
+            <path d="M28 16 C30 14 29 11 26 12 C26 12 27 16 24 17" fill="#C4617E" opacity=".5"/>
+            <circle cx="24" cy="20" r="4" fill="#C4617E" opacity=".8"/>
+            <rect x="14" y="30" width="20" height="6" rx="3" fill="#7BAE8A" opacity=".5"/>
+            <path d="M18 30V28M24 30V26M30 30V28" stroke="#5A9068" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="svc-name" data-ru="Воздушные шары" data-kz="Ауа шарлары">Воздушные шары</div>
+        <p class="svc-desc" data-ru="Гелиевые шары, фольгированные фигуры и воздушные композиции. Быстрое надувание на месте." data-kz="Гелий шарлары, фольга фигуралары және ауалы композициялар.">Гелиевые шары, фольгированные фигуры и воздушные композиции. Быстрое надувание на месте.</p>
+        <div class="svc-price">от 500 ₸ <small data-ru="/ шт" data-kz="/ дана">/ шт</small></div>
+        <a href="https://api.whatsapp.com/send/?phone=77770496450&text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21+%D0%A5%D0%BE%D1%87%D1%83+%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C+%D1%88%D0%B0%D1%80%D1%8B." target="_blank" class="svc-btn">
+          <span data-ru="Заказать" data-kz="Тапсырыс беру">Заказать</span>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="#C4617E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="svc-card" style="transition-delay:.35s">
+        <div class="svc-icon">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <rect width="48" height="48" rx="14" fill="#EEF6F0"/>
+            <path d="M12 36 L12 20 Q12 18 14 18 L34 18 Q36 18 36 20 L36 36" stroke="#5A9068" stroke-width="2" fill="none"/>
+            <rect x="14" y="12" width="20" height="8" rx="2" fill="#7BAE8A" opacity=".5"/>
+            <path d="M20 18V13a4 4 0 018 0v5" stroke="#5A9068" stroke-width="1.5" fill="none"/>
+            <path d="M22 27 L22 24 Q24 22 26 24 L26 27" stroke="#C4617E" stroke-width="1.3" fill="none"/>
+          </svg>
+        </div>
+        <div class="svc-name" data-ru="Доставка букетов" data-kz="Гүл шоқтарын жеткізу">Доставка букетов</div>
+        <p class="svc-desc" data-ru="Быстрая и аккуратная доставка по всей Астане в любое время суток. Сюрприз-доставка с открыткой." data-kz="Тәулік мезгілінде қалаға жылдам және ұқыпты жеткізу.">Быстрая и аккуратная доставка по всей Астане в любое время суток. Сюрприз-доставка с открыткой.</p>
+        <div class="svc-price">от 1 500 ₸ <small data-ru="/ доставка" data-kz="/ жеткізу">/ доставка</small></div>
+        <a href="https://api.whatsapp.com/send/?phone=77770496450&text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21+%D0%A5%D0%BE%D1%87%D1%83+%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C+%D0%B4%D0%BE%D1%81%D1%82%D0%B0%D0%B2%D0%BA%D1%83." target="_blank" class="svc-btn">
+          <span data-ru="Заказать" data-kz="Тапсырыс беру">Заказать</span>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="#C4617E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== REVIEWS ===== -->
+<section id="reviews">
+  <div class="section-wrap">
+    <span class="section-label">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1L8.5 5H13L9.5 7.5L11 12L7 9.5L3 12L4.5 7.5L1 5H5.5z" fill="#F2C4CE" stroke="#C4617E" stroke-width=".8"/></svg>
+      <span data-ru="Отзывы" data-kz="Пікірлер">Отзывы</span>
+    </span>
+    <h2 class="section-title" data-ru="Что говорят наши <span class='hl'>клиенты</span>" data-kz="Біздің <span class='hl'>клиенттеріміз</span> не дейді">Что говорят наши <span class="hl">клиенты</span></h2>
+  </div>
+
+  <div class="slider-outer">
+    <div class="slider-track" id="sliderTrack">
+
+      <div class="review-card">
+        <div class="review-quote-icon">
+          <svg width="48" height="40" viewBox="0 0 48 40" fill="none"><path d="M0 40V24C0 12 6 4 18 0l3 5C14 7 11 12 11 18h7v22H0zm26 0V24c0-12 6-20 18-24l3 5c-7 2-10 7-10 13h7v22H26z" fill="#C4617E"/></svg>
+        </div>
+        <div class="review-stars" id="rs1"></div>
+        <p class="review-text">Покупала цветы 22 марта. Спасибо продавцу, все красиво оформила. Сервис классный. И цветы свежие и необычные.</p>
+        <div class="review-author">Gulbarshyn BGS</div>
+        <div class="review-date">22 марта 2026</div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-quote-icon">
+          <svg width="48" height="40" viewBox="0 0 48 40" fill="none"><path d="M0 40V24C0 12 6 4 18 0l3 5C14 7 11 12 11 18h7v22H0zm26 0V24c0-12 6-20 18-24l3 5c-7 2-10 7-10 13h7v22H26z" fill="#C4617E"/></svg>
+        </div>
+        <div class="review-stars" id="rs2"></div>
+        <p class="review-text">Отличный сервис! Я удалённо обратилась, и мне Анна очень грамотно и красиво решила мой вопрос. Цените таких сотрудников!</p>
+        <div class="review-author">Гульдана Кереева</div>
+        <div class="review-date">16 марта 2026</div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-quote-icon">
+          <svg width="48" height="40" viewBox="0 0 48 40" fill="none"><path d="M0 40V24C0 12 6 4 18 0l3 5C14 7 11 12 11 18h7v22H0zm26 0V24c0-12 6-20 18-24l3 5c-7 2-10 7-10 13h7v22H26z" fill="#C4617E"/></svg>
+        </div>
+        <div class="review-stars" id="rs3"></div>
+        <p class="review-text">Цветы огонь! Красивые и свежие. Рекомендую всем. Отдельное спасибо за быстрое обслуживание.</p>
+        <div class="review-author">Досжан Мухаметкали</div>
+        <div class="review-date">6 марта 2026 · подтверждён</div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-quote-icon">
+          <svg width="48" height="40" viewBox="0 0 48 40" fill="none"><path d="M0 40V24C0 12 6 4 18 0l3 5C14 7 11 12 11 18h7v22H0zm26 0V24c0-12 6-20 18-24l3 5c-7 2-10 7-10 13h7v22H26z" fill="#C4617E"/></svg>
+        </div>
+        <div class="review-stars" id="rs4"></div>
+        <p class="review-text">Самые низкие цены по городу, цветы топ. Персонал супер, брали много букетов — собирали быстро.</p>
+        <div class="review-author">Медет Шаукенов</div>
+        <div class="review-date">5 марта 2026</div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-quote-icon">
+          <svg width="48" height="40" viewBox="0 0 48 40" fill="none"><path d="M0 40V24C0 12 6 4 18 0l3 5C14 7 11 12 11 18h7v22H0zm26 0V24c0-12 6-20 18-24l3 5c-7 2-10 7-10 13h7v22H26z" fill="#C4617E"/></svg>
+        </div>
+        <div class="review-stars" id="rs5"></div>
+        <p class="review-text">Всегда свежие цветы, обслуживание на высшем уровне. Уже не первый раз покупаю и всегда доволен.</p>
+        <div class="review-author">Улан Алмаханбетов</div>
+        <div class="review-date">5 марта 2026</div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-quote-icon">
+          <svg width="48" height="40" viewBox="0 0 48 40" fill="none"><path d="M0 40V24C0 12 6 4 18 0l3 5C14 7 11 12 11 18h7v22H0zm26 0V24c0-12 6-20 18-24l3 5c-7 2-10 7-10 13h7v22H26z" fill="#C4617E"/></svg>
+        </div>
+        <div class="review-stars" id="rs6"></div>
+        <p class="review-text">Очень милые девушки работают в этом цветочном. Всегда свежие цветы, все быстро оформляют и открыты 24/7!</p>
+        <div class="review-author">Alisher Kaziz</div>
+        <div class="review-date">14 февраля 2026</div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-quote-icon">
+          <svg width="48" height="40" viewBox="0 0 48 40" fill="none"><path d="M0 40V24C0 12 6 4 18 0l3 5C14 7 11 12 11 18h7v22H0zm26 0V24c0-12 6-20 18-24l3 5c-7 2-10 7-10 13h7v22H26z" fill="#C4617E"/></svg>
+        </div>
+        <div class="review-stars" id="rs7"></div>
+        <p class="review-text">Спасибо за доставку букета. Быстро, красиво! Очень приятно получать такие подарки.</p>
+        <div class="review-author">Марьям</div>
+        <div class="review-date">6 февраля 2026</div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-quote-icon">
+          <svg width="48" height="40" viewBox="0 0 48 40" fill="none"><path d="M0 40V24C0 12 6 4 18 0l3 5C14 7 11 12 11 18h7v22H0zm26 0V24c0-12 6-20 18-24l3 5c-7 2-10 7-10 13h7v22H26z" fill="#C4617E"/></svg>
+        </div>
+        <div class="review-stars" id="rs8"></div>
+        <p class="review-text">Самая лучшая цветочная! Был на 14-е февраля — всё идеально, быстро и со вкусом.</p>
+        <div class="review-author">Канат</div>
+        <div class="review-date">14 февраля 2026 · подтверждён</div>
+      </div>
+
+    </div>
+    <div class="slider-nav">
+      <button class="slider-btn" id="prevBtn" onclick="slideReviews(-1)">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="slider-dots" id="sliderDots"></div>
+      <button class="slider-btn" id="nextBtn" onclick="slideReviews(1)">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BRANCHES ===== -->
+<section id="branches">
+  <div class="section-wrap">
+    <span class="section-label">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1C4.8 1 3 2.8 3 5c0 3.3 4 8 4 8s4-4.7 4-8C11 2.8 9.2 1 7 1z" fill="#F2C4CE" stroke="#C4617E" stroke-width=".8"/><circle cx="7" cy="5" r="1.5" fill="#C4617E"/></svg>
+      <span data-ru="Наши адреса" data-kz="Біздің мекенжайлар">Наши адреса</span>
+    </span>
+    <h2 class="section-title" data-ru="Мы рядом — <span class='hl'>4 точки</span> в городе" data-kz="Біз жанында — қалада <span class='hl'>4 нүкте</span>">Мы рядом — <span class="hl">4 точки</span> в городе</h2>
+
+    <div class="branches-grid">
+      <div class="branch-list">
+        <div class="branch-item on">
+          <div class="branch-num">01</div>
+          <div>
+            <div class="branch-name">Crocus Flowers</div>
+            <div class="branch-addr">Е-15 улица, 16</div>
+            <div class="branch-meta">
+              <div class="branch-status">
+                <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><circle cx="4" cy="4" r="4" fill="#7BAE8A"/></svg>
+                <span data-ru="Круглосуточно" data-kz="Тәулік бойы">Круглосуточно</span>
+              </div>
+              <div class="branch-stars">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1L7.12 4.24H10.5L7.77 6.26L8.9 9.5L6 7.5L3.1 9.5L4.23 6.26L1.5 4.24H4.88z" fill="#F5C542"/></svg>
+                4.7 (26)
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="branch-item">
+          <div class="branch-num">02</div>
+          <div>
+            <div class="branch-name">Crocus Flowers</div>
+            <div class="branch-addr">Проспект Туран, 46а</div>
+            <div class="branch-meta">
+              <div class="branch-status">
+                <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><circle cx="4" cy="4" r="4" fill="#7BAE8A"/></svg>
+                <span data-ru="Круглосуточно" data-kz="Тәулік бойы">Круглосуточно</span>
+              </div>
+              <div class="branch-stars">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1L7.12 4.24H10.5L7.77 6.26L8.9 9.5L6 7.5L3.1 9.5L4.23 6.26L1.5 4.24H4.88z" fill="#F5C542"/></svg>
+                5.0 (131)
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="branch-item">
+          <div class="branch-num">03</div>
+          <div>
+            <div class="branch-name">DeLove Flowers</div>
+            <div class="branch-addr">Ул. Ахмет Байтурсынулы, 32/4</div>
+            <div class="branch-meta">
+              <div class="branch-status">
+                <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><circle cx="4" cy="4" r="4" fill="#7BAE8A"/></svg>
+                <span data-ru="Открыто" data-kz="Ашық">Открыто</span>
+              </div>
+              <div class="branch-stars">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1L7.12 4.24H10.5L7.77 6.26L8.9 9.5L6 7.5L3.1 9.5L4.23 6.26L1.5 4.24H4.88z" fill="#F5C542"/></svg>
+                4.4 (224)
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="branch-item">
+          <div class="branch-num">04</div>
+          <div>
+            <div class="branch-name">DeLove Flowers</div>
+            <div class="branch-addr">Просп. Магжана Жумабаева, 27/5</div>
+            <div class="branch-meta">
+              <div class="branch-status closed">
+                <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><circle cx="4" cy="4" r="4" fill="#B09880"/></svg>
+                <span data-ru="Временно не работает" data-kz="Уақытша жұмыс жасамайды">Временно не работает</span>
+              </div>
+              <div class="branch-stars">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1L7.12 4.24H10.5L7.77 6.26L8.9 9.5L6 7.5L3.1 9.5L4.23 6.26L1.5 4.24H4.88z" fill="#F5C542"/></svg>
+                4.5 (11)
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="branch-info-box rv">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="#C4617E" stroke-width="1.2" fill="none"/><path d="M7 4v3l2 2" stroke="#C4617E" stroke-width="1.2" stroke-linecap="round"/></svg>
+            <strong style="font-size:.8rem" data-ru="Режим работы" data-kz="Жұмыс режимі">Режим работы</strong>
+          </div>
+          <span data-ru="Основные точки работают круглосуточно, 7 дней в неделю." data-kz="Негізгі нүктелер тәулік бойы, аптасына 7 күн жұмыс жасайды.">Основные точки работают круглосуточно, 7 дней в неделю.</span>
+        </div>
+      </div>
+
+      <div class="map-frame rv" style="transition-delay:.15s">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d91570.23939956017!2d71.28204865859374!3d51.1282244!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x424585012f544c41%3A0x9edae2ddac5f52c!2z0JDRgdGC0LDQvdCw!5e0!3m2!1sru!2skz!4v1710000000000"
+          allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          title="Crocus Flowers на карте Астаны">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SOCIALS ===== -->
+<section id="socials">
+  <div class="section-wrap" style="text-align:center">
+    <span class="section-label" style="justify-content:center">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="2" width="10" height="10" rx="3" stroke="#C4617E" stroke-width="1.2" fill="none"/><circle cx="7" cy="7" r="2.5" stroke="#C4617E" stroke-width="1.2" fill="none"/><circle cx="10" cy="4" r="1" fill="#C4617E"/></svg>
+      <span data-ru="Мы в соцсетях" data-kz="Әлеуметтік желілерде">Мы в соцсетях</span>
+    </span>
+    <h2 class="section-title" data-ru="Следите за нашими <span class='hl'>новинками</span>" data-kz="Біздің <span class='hl'>жаңалықтарды</span> қадағалаңыз">Следите за нашими <span class="hl">новинками</span></h2>
+    <p class="section-sub" style="margin:0 auto" data-ru="Свежие работы, акции и вдохновение — в наших соцсетях." data-kz="Жаңа жұмыстар, акциялар және шабыт — біздің әлеуметтік желілерімізде.">Свежие работы, акции и вдохновение — в наших соцсетях.</p>
+
+    <div class="soc-grid">
+      <a href="https://www.instagram.com/crocus_ast_flowers" target="_blank" class="soc-card">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+          <defs>
+            <linearGradient id="igGrad" x1="0" y1="44" x2="44" y2="0">
+              <stop stop-color="#f09433"/>
+              <stop offset=".25" stop-color="#e6683c"/>
+              <stop offset=".5" stop-color="#dc2743"/>
+              <stop offset=".75" stop-color="#cc2366"/>
+              <stop offset="1" stop-color="#bc1888"/>
+            </linearGradient>
+          </defs>
+          <rect width="44" height="44" rx="12" fill="url(#igGrad)"/>
+          <rect x="10" y="10" width="24" height="24" rx="7" stroke="white" stroke-width="2" fill="none"/>
+          <circle cx="22" cy="22" r="6" stroke="white" stroke-width="2" fill="none"/>
+          <circle cx="29.5" cy="14.5" r="1.5" fill="white"/>
+        </svg>
+        <div class="soc-name">Instagram</div>
+        <div class="soc-handle">@crocus_ast_flowers</div>
+      </a>
+
+      <a href="https://www.tiktok.com/@crocus_flowers01" target="_blank" class="soc-card" style="transition-delay:.1s">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+          <rect width="44" height="44" rx="12" fill="#000"/>
+          <path d="M28.5 14.5c.9 1.1 2.2 1.8 3.5 1.8v3.1c-1.2 0-2.4-.4-3.5-1v6.3c0 3.2-2.6 5.8-5.8 5.8s-5.8-2.6-5.8-5.8 2.6-5.8 5.8-5.8c.3 0 .6 0 .9.1v3.2c-.3-.1-.6-.1-.9-.1-1.5 0-2.7 1.2-2.7 2.7s1.2 2.7 2.7 2.7 2.7-1.2 2.7-2.7V13h3.1v1.5z" fill="white"/>
+          <path d="M30 14.5c.5.6 1.1 1 1.8 1.2" stroke="#25F4EE" stroke-width="1.2" fill="none"/>
+          <path d="M25.5 19.4V24.7c0 1.5-1.2 2.7-2.7 2.7s-2.7-1.2-2.7-2.7" stroke="#FE2C55" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        </svg>
+        <div class="soc-name">TikTok</div>
+        <div class="soc-handle">@crocus_flowers01</div>
+      </a>
+
+      <a href="https://api.whatsapp.com/send/?phone=77770496450" target="_blank" class="soc-card" style="transition-delay:.2s">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+          <rect width="44" height="44" rx="12" fill="#25D366"/>
+          <path d="M30.4 13.6C28.4 11.6 25.8 10.5 23 10.5c-5.7 0-10.3 4.6-10.3 10.3 0 1.8.5 3.6 1.4 5.1L12.5 31.5l5.8-1.5c1.5.8 3.1 1.2 4.8 1.2 5.7 0 10.3-4.6 10.3-10.3-.1-2.7-1.2-5.3-3-7.3zm-7.4 15.8c-1.5 0-3-.4-4.3-1.1l-.3-.2-3.2.8.9-3.1-.2-.3c-.8-1.3-1.2-2.8-1.2-4.3 0-4.7 3.8-8.5 8.5-8.5 2.3 0 4.4.9 6 2.5 1.6 1.6 2.5 3.7 2.5 5.9-.1 4.7-3.9 8.3-8.7 8.3zm4.6-6.3c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.5.1-.2.2-.6.8-.7.9-.1.1-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5l.4-.4.2-.3.1-.3-1.1-2.5c-.3-.7-.5-.6-.7-.6h-.5c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.7 2.7 4.2 3.8.6.3 1.1.5 1.4.6.6.2 1.2.2 1.6.1.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2-.2-.1-.3-.2-.5-.2z" fill="white"/>
+        </svg>
+        <div class="soc-name">WhatsApp</div>
+        <div class="soc-handle">+7 (777) 049-64-50</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section id="contact">
+  <div class="section-wrap">
+    <span class="section-label">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M11.5 9.3c-.2-.1-1.4-.7-1.6-.8-.2-.1-.3-.1-.5.1-.1.2-.6.8-.7.9-.1.1-.2.2-.4.1-.2-.1-.9-.3-1.7-1-.6-.6-1-1.3-1.1-1.5-.1-.2 0-.3.1-.4l.3-.3.2-.3.1-.3-1-2.4c-.3-.6-.5-.5-.7-.5H4c-.2 0-.5.1-.7.4-.2.3-.8.8-.8 1.9s.8 2.1.9 2.3c.1.2 1.6 2.5 4 3.5.6.3 1 .4 1.3.5.5.2 1 .1 1.4.1.4-.1 1.3-.5 1.5-1 .2-.5.2-.9.1-1z" stroke="#C4617E" stroke-width=".8" fill="none"/><path d="M2.5 2.5h3l1 2.5-1.8 1.3c.9 1.7 2.5 3.3 4.3 4.2L10.3 9l2.2.9v2.6c0 .7-.5 1.2-1.2 1.2C5.1 13.7.3 8.9.3 2.7c0-.8.6-1.2 1.2-1.2" stroke="#C4617E" stroke-width=".8" fill="#F2C4CE" opacity=".4"/></svg>
+      <span data-ru="Контакты" data-kz="Байланыс">Контакты</span>
+    </span>
+    <h2 class="section-title" data-ru="Свяжитесь с <span class='hl'>нами</span>" data-kz="Бізбен <span class='hl'>байланысыңыз</span>">Свяжитесь с <span class="hl">нами</span></h2>
+
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="ci-item">
+          <div class="ci-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M14 12.3c-.2-.1-1.2-.6-1.4-.7-.2-.1-.3-.1-.4.1-.1.2-.5.7-.6.8-.1.1-.2.2-.4.1-.2-.1-.8-.3-1.5-1-.6-.6-.9-1.2-1-1.4-.1-.2 0-.3.1-.4l.3-.3.2-.3.1-.3-.9-2.1c-.2-.6-.4-.5-.6-.5H7.4c-.2 0-.4.1-.6.3-.2.2-.7.7-.7 1.7s.7 1.9.8 2c.1.1 1.4 2.2 3.4 3.1.5.2.9.4 1.2.5.5.2.9.1 1.3.1.4-.1 1.2-.5 1.4-1 .2-.4.2-.8.1-.9z" fill="#C4617E"/>
+            </svg>
+          </div>
+          <div>
+            <div class="ci-lbl" data-ru="Телефон / WhatsApp" data-kz="Телефон / WhatsApp">Телефон / WhatsApp</div>
+            <div class="ci-val"><a href="tel:+77770496450">+7 (777) 049-64-50</a></div>
+          </div>
+        </div>
+
+        <div class="ci-item" style="transition-delay:.1s">
+          <div class="ci-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <rect x="2" y="4" width="16" height="13" rx="2.5" stroke="#C4617E" stroke-width="1.4" fill="none"/>
+              <path d="M2 7l8 5.5L18 7" stroke="#C4617E" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <div class="ci-lbl">Instagram</div>
+            <div class="ci-val"><a href="https://www.instagram.com/crocus_ast_flowers" target="_blank">@crocus_ast_flowers</a></div>
+          </div>
+        </div>
+
+        <div class="ci-item" style="transition-delay:.2s">
+          <div class="ci-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M10 2C6.7 2 4 4.7 4 8c0 4.4 6 10 6 10s6-5.6 6-10c0-3.3-2.7-6-6-6z" fill="#F2C4CE" stroke="#C4617E" stroke-width="1.2"/>
+              <circle cx="10" cy="8" r="2" fill="#C4617E"/>
+            </svg>
+          </div>
+          <div>
+            <div class="ci-lbl" data-ru="Адреса" data-kz="Мекенжайлар">Адреса</div>
+            <div class="ci-val" style="font-size:.85rem;font-weight:400;color:var(--text2);line-height:1.6">
+              <span data-ru="4 точки продаж в Астане" data-kz="Астанада 4 сату нүктесі">4 точки продаж в Астане</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ci-item" style="transition-delay:.3s">
+          <div class="ci-icon">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="10" r="7" stroke="#C4617E" stroke-width="1.4" fill="none"/>
+              <path d="M10 6v4l3 3" stroke="#C4617E" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <div class="ci-lbl" data-ru="Режим работы" data-kz="Жұмыс режимі">Режим работы</div>
+            <div class="ci-val" data-ru="Круглосуточно, 7/7" data-kz="Тәулік бойы, 7/7">Круглосуточно, 7/7</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="contact-form rv">
+        <div class="fg">
+          <label data-ru="Ваше имя" data-kz="Сіздің атыңыз">Ваше имя</label>
+          <input type="text" id="cfName" placeholder="Анна" autocomplete="name">
+        </div>
+        <div class="fg">
+          <label data-ru="Телефон" data-kz="Телефон">Телефон</label>
+          <input type="tel" id="cfPhone" placeholder="+7 (___) ___-__-__" autocomplete="tel">
+        </div>
+        <div class="fg">
+          <label data-ru="Сообщение / Пожелания к букету" data-kz="Хабарлама / Гүл шоқтарына тілектер">Сообщение / Пожелания к букету</label>
+          <textarea id="cfMsg" placeholder="Опишите желаемый букет, повод, бюджет..."></textarea>
+        </div>
+        <button class="form-submit" onclick="sendToWA()">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M15.4 2.6C13.8 1 11.5 0.1 9 0.1c-5 0-9 4-9 9 0 1.6.4 3.1 1.2 4.5L0 18l4.5-1.2c1.4.7 2.9 1.1 4.5 1.1 5 0 9-4 9-9 0-2.4-.9-4.7-2.6-6.3z" fill="white" opacity=".9"/>
+          </svg>
+          <span data-ru="Отправить в WhatsApp" data-kz="WhatsApp-қа жіберу">Отправить в WhatsApp</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">Crocus Flowers</div>
+        <p class="footer-tagline" data-ru="Свежие цветы и эмоции для вас — каждый день, круглосуточно." data-kz="Сіз үшін жаңа гүлдер мен эмоциялар — күн сайын, тәулік бойы.">Свежие цветы и эмоции для вас — каждый день, круглосуточно.</p>
+      </div>
+      <div>
+        <div class="footer-links-title" data-ru="Навигация" data-kz="Навигация">Навигация</div>
+        <div class="footer-links">
+          <a href="#about" data-ru="О нас" data-kz="Біз туралы">О нас</a>
+          <a href="#services" data-ru="Услуги" data-kz="Қызметтер">Услуги</a>
+          <a href="#reviews" data-ru="Отзывы" data-kz="Пікірлер">Отзывы</a>
+          <a href="#branches" data-ru="Филиалы" data-kz="Филиалдар">Филиалы</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-links-title" data-ru="Контакты" data-kz="Байланыс">Контакты</div>
+        <div class="footer-links">
+          <a href="tel:+77770496450">+7 (777) 049-64-50</a>
+          <a href="https://www.instagram.com/crocus_ast_flowers" target="_blank">Instagram</a>
+          <a href="https://www.tiktok.com/@crocus_flowers01" target="_blank">TikTok</a>
+          <a href="https://api.whatsapp.com/send/?phone=77770496450" target="_blank">WhatsApp</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span data-ru="© 2024 Crocus Flowers. Все права защищены." data-kz="© 2024 Crocus Flowers. Барлық құқықтар қорғалған.">© 2024 Crocus Flowers. Все права защищены.</span>
+      <span data-ru="Астана, Казахстан" data-kz="Астана, Қазақстан">Астана, Казахстан</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+// ---- LOADER ----
+window.addEventListener('load', function() {
+  setTimeout(function() {
+    document.getElementById('loader').classList.add('hide');
+  }, 1600);
+});
+
+// ---- SCROLL TOP ----
+window.addEventListener('scroll', function() {
+  document.getElementById('scrolltop').classList.toggle('vis', window.scrollY > 500);
+});
+
+// ---- THEME TOGGLE ----
+function toggleTheme() {
+  var html = document.documentElement;
+  var ico = document.getElementById('themeIco');
+  if (html.dataset.theme === 'light') {
+    html.dataset.theme = 'dark';
+    ico.innerHTML = '<path d="M13 8A6 6 0 016.5 1.5a6 6 0 100 13A6 6 0 0113 8z" stroke="currentColor" stroke-width="1.5" fill="none"/>';
+  } else {
+    html.dataset.theme = 'light';
+    ico.innerHTML = '<circle cx="8" cy="8" r="3.5" stroke="currentColor" stroke-width="1.5"/><path d="M8 1v1.5M8 13.5V15M1 8h1.5M13.5 8H15M3.05 3.05l1.06 1.06M11.89 11.89l1.06 1.06M3.05 12.95l1.06-1.06M11.89 4.11l1.06-1.06" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>';
+  }
+}
+
+// ---- LANGUAGE TOGGLE ----
+function toggleLang() {
+  var html = document.documentElement;
+  var btn = document.getElementById('langBtn');
+  var next = html.dataset.lang === 'ru' ? 'kz' : 'ru';
+  html.dataset.lang = next;
+  btn.textContent = next === 'ru' ? 'КАЗ' : 'РУС';
+  document.querySelectorAll('[data-ru]').forEach(function(el) {
+    var val = el.dataset[next];
+    if (!val) return;
+    if (val.indexOf('<') !== -1) el.innerHTML = val;
+    else el.textContent = val;
+  });
+}
+
+// ---- MOBILE MENU ----
+function toggleMM() {
+  document.getElementById('burger').classList.toggle('on');
+  document.getElementById('mmenu').classList.toggle('on');
+}
+function closeMM() {
+  document.getElementById('burger').classList.remove('on');
+  document.getElementById('mmenu').classList.remove('on');
+}
+
+// ---- INTERSECTION OBSERVER ----
+var io = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) {
+      e.target.classList.add('vis');
+      if (e.target.classList.contains('stat-box')) {
+        var num = e.target.querySelector('.stat-num');
+        if (num && !num.dataset.done) {
+          num.dataset.done = '1';
+          animateCount(num, parseInt(num.dataset.target));
+        }
+      }
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.rv, .svc-card, .stat-box, .about-card, .branch-item, .soc-card, .ci-item').forEach(function(el) { io.observe(el); });
+
+var sio = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('ai'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('section').forEach(function(s) { sio.observe(s); });
+
+// ---- COUNTER ----
+function animateCount(el, target) {
+  var start = performance.now(), dur = 1800;
+  function step(now) {
+    var p = Math.min((now - start) / dur, 1);
+    var ease = 1 - Math.pow(1 - p, 3);
+    var v = Math.round(ease * target);
+    el.textContent = v >= 1000 ? v.toLocaleString('ru') + '+' : v;
+    if (p < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+// ---- STARS (SVG) ----
+function makeStar(full) {
+  var ns = 'http://www.w3.org/2000/svg';
+  var s = document.createElementNS(ns, 'svg');
+  s.setAttribute('width', '14'); s.setAttribute('height', '14'); s.setAttribute('viewBox', '0 0 14 14'); s.setAttribute('fill', 'none');
+  var p = document.createElementNS(ns, 'path');
+  p.setAttribute('d', 'M7 1.5L8.54 5.27L12.6 5.63L9.6 8.27L10.55 12.24L7 10.15L3.45 12.24L4.4 8.27L1.4 5.63L5.46 5.27z');
+  p.setAttribute('fill', full ? '#F5C542' : 'none');
+  p.setAttribute('stroke', '#F5C542'); p.setAttribute('stroke-width', '1'); p.setAttribute('stroke-linejoin', 'round');
+  s.appendChild(p); return s;
+}
+var ratings = [5,5,5,5,5,5,5,5];
+for (var ri = 1; ri <= 8; ri++) {
+  var el = document.getElementById('rs' + ri);
+  if (!el) continue;
+  for (var rj = 1; rj <= 5; rj++) el.appendChild(makeStar(rj <= ratings[ri - 1]));
+}
+
+// ---- SLIDER ----
+var curSlide = 0, slidesPerView = 3, totalSlides = 8, autoInterval;
+
+function initSlider() {
+  var w = window.innerWidth;
+  slidesPerView = w <= 640 ? 1 : w <= 900 ? 2 : 3;
+  var cards = document.querySelectorAll('.review-card');
+  var gap = 20;
+  cards.forEach(function(c) {
+    c.style.minWidth = 'calc(' + (100 / slidesPerView) + '% - ' + (gap * (slidesPerView - 1) / slidesPerView) + 'px)';
+    c.style.marginRight = gap + 'px';
+  });
+  buildDots();
+  updateSlider();
+}
+
+function buildDots() {
+  var d = document.getElementById('sliderDots'); d.innerHTML = '';
+  var pages = Math.ceil(totalSlides / slidesPerView);
+  for (var i = 0; i < pages; i++) {
+    (function(idx) {
+      var dot = document.createElement('div'); dot.className = 'sdot' + (idx === 0 ? ' on' : '');
+      dot.onclick = function() { curSlide = idx; updateSlider(); resetTimer(); };
+      d.appendChild(dot);
+    })(i);
+  }
+}
+
+function updateSlider() {
+  var cards = document.querySelectorAll('.review-card');
+  if (!cards.length) return;
+  var cardW = cards[0].offsetWidth + 20;
+  var pages = Math.ceil(totalSlides / slidesPerView);
+  curSlide = Math.max(0, Math.min(curSlide, pages - 1));
+  document.getElementById('sliderTrack').style.transform = 'translateX(-' + (curSlide * cardW * slidesPerView) + 'px)';
+  document.querySelectorAll('.sdot').forEach(function(d, i) { d.classList.toggle('on', i === curSlide); });
+}
+
+function slideReviews(dir) {
+  var pages = Math.ceil(totalSlides / slidesPerView);
+  curSlide = (curSlide + dir + pages) % pages;
+  updateSlider(); resetTimer();
+}
+
+function resetTimer() {
+  clearInterval(autoInterval);
+  autoInterval = setInterval(function() { slideReviews(1); }, 4500);
+}
+
+window.addEventListener('resize', initSlider);
+initSlider(); resetTimer();
+
+// ---- BRANCH SELECT ----
+document.querySelectorAll('.branch-item').forEach(function(item) {
+  item.addEventListener('click', function() {
+    document.querySelectorAll('.branch-item').forEach(function(i) { i.classList.remove('on'); });
+    item.classList.add('on');
+  });
+});
+
+// ---- PETALS ANIMATION ----
+var petalColors = ['#F2C4CE', '#E8A0B0', '#7BAE8A', '#F5E4E8', '#C4617E'];
+var petalsContainer = document.getElementById('petalsContainer');
+function createPetal() {
+  var p = document.createElement('div');
+  p.className = 'fp';
+  var size = Math.random() * 16 + 8;
+  p.style.cssText = [
+    'width:' + size + 'px',
+    'height:' + size + 'px',
+    'background:' + petalColors[Math.floor(Math.random() * petalColors.length)],
+    'left:' + Math.random() * 100 + '%',
+    'animation-duration:' + (Math.random() * 8 + 6) + 's',
+    'animation-delay:' + Math.random() * 4 + 's'
+  ].join(';');
+  petalsContainer.appendChild(p);
+  setTimeout(function() { p.remove(); }, 14000);
+}
+for (var i = 0; i < 18; i++) {
+  setTimeout(createPetal, i * 400);
+}
+setInterval(createPetal, 1200);
+
+// ---- FORM → WHATSAPP ----
+function sendToWA() {
+  var name = document.getElementById('cfName').value.trim();
+  var phone = document.getElementById('cfPhone').value.trim();
+  var msg = document.getElementById('cfMsg').value.trim();
+  if (!name || !phone) { alert('Пожалуйста, заполните имя и телефон'); return; }
+  var text = encodeURIComponent('Здравствуйте! Меня зовут ' + name + ', телефон: ' + phone + '. ' + msg);
+  window.open('https://api.whatsapp.com/send/?phone=77770496450&text=' + text + '&type=phone_number&app_absent=0', '_blank');
+}
+
+// ---- PHONE MASK ----
+document.getElementById('cfPhone').addEventListener('input', function() {
+  var v = this.value.replace(/\D/g, '');
+  if (v[0] === '8') v = '7' + v.slice(1);
+  if (v[0] !== '7') v = '7' + v;
+  v = v.slice(0, 11);
+  var f = '+7';
+  if (v.length > 1) f += ' (' + v.slice(1, 4);
+  if (v.length > 4) f += ') ' + v.slice(4, 7);
+  if (v.length > 7) f += '-' + v.slice(7, 9);
+  if (v.length > 9) f += '-' + v.slice(9, 11);
+  this.value = f;
+});
+</script>
+</body>
+</html>
